@@ -1,0 +1,134 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    cursor: default;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, #7f53ac 0, #657ced 100%);
+    min-height: 100vh;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* button show_modal */
+.model_button {
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+}
+
+#show_modal {
+    max-width: 576px;
+    font-weight: 400;
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    transition: box-shadow .3s;
+}
+
+#show_modal:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(33,33,33,.9);
+}
+
+/* modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* при отображении модального окно */
+.modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal_dialog {
+    position: relative;
+    width: auto;
+    margin: 150px auto;
+    max-width: 500px;
+}
+
+.modal_content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+
+/* modal header */
+.modal_header {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eceeef;
+}
+
+.modal_title {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.5;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+/* close button */
+.close {
+    float: right;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5;
+    text-decoration: none;
+}
+
+.close:focus, .close:hover {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: .75;
+}
+
+/* modal body */
+.modal_body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 15px;
+    overflow: auto;
+}
+
+.modal_text {
+    padding: 5px 10px;
+}
+
+.user_name {
+    font-weight: 400;
+}
+
