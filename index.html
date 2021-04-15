@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScript laba 2</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+<button id="show-modal" class="btn"> 👉Click here to open modal window</button>
+
+<script>
+
+    (function () {
+
+        const requestURL = 'https://rpi-lab2.herokuapp.com/api/message';
+        loadRequest(requestURL);
+
+        // создание модального окна
+        var modal = $modal({
+            title: 'Get request result',
+        });
+
+
+
+        // открытие модального окна
+        document.querySelector('#show-modal').addEventListener('click', () => {
+            modal.show();
+        });
+
+
+
+
+    })();
+
+</script>
+
+</body>
+
+</html>
