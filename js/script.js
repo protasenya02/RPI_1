@@ -1,68 +1,120 @@
-window.onload = () => {
-    createModal();
-};
+function createModalElement() {
+    const modalElement = document.createElement('div');
+    modalElement.classList.add('modal');
+    modalElement.id = "openModal";
 
-function createModal() {
+    document.body.appendChild(modalElement);
 
-    const modalTemplate = getModalTemplate();
-    document.body.innerHTML += modalTemplate;
+    const modalDialog = document.createElement('div');
+    modalDialog.classList.add('modal_dialog');
+
+    modalElement.appendChild(modalDialog);
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal_content');
+
+    modalDialog.appendChild(modalContent);
+
+    const modalHeader = document.createElement('div');
+    modalHeader.classList.add('modal_header');
+
+    const modalTitle = document.createElement('div');
+    modalTitle.classList.add('modal_title');
+
+    modalTitle.appendChild(document.createTextNode('Results of GET request'));
+
+    const href = document.createElement('a');
+    href.classList.add('close');
+    href.setAttribute('href', '#close');
+    href.appendChild(document.createTextNode('×'));
+
+    modalHeader.appendChild(modalTitle);
+    modalHeader.appendChild(href);
+
+    const modalBody = document.createElement('div');
+    modalBody.classList.add('modal_body');
+
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+    document.body.style.overflow = 'hidden';
+
+    const overlay = document.createElement('div')
+    overlay.classList.add('overlay');
+    document.body.append(overlay);
 
     const requestURL = 'https://rpi-lab2.herokuapp.com/api/message';
-    loadRequest(requestURL);
+    sendRequest(requestURL);
 }
 
-function loadRequest(url) {
+function sendRequest(url) {
 
-    let request = new XMLHttpRequest();
-    request.open('GET', url, true);
+    setTimeout(() =>{
 
-    request.responseType = "json";
-    request.send();
+        let request = new XMLHttpRequest();
+        request.open('GET', url, true);
 
-    request.onload = function () {
-        outputRequest(request.response);
-    }
+        request.responseType = "json";
+        request.setRequestHeader('Content-Type', 'application/json');
 
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                if (request.status === 200) {
+                    outputRequest(request.response);
+                }
+            }
+        }
+
+        request.send(null);
+    }, 500);
 }
 
 function outputRequest(request) {
 
     let obj = request;
-    let modalBody = document.querySelector(".modal_body");
-    let bodyText = "";
+    const modalBody = document.querySelector(".modal_body");
 
     Object.keys(obj).forEach(function (key) {
-        const messageTemplate = getMessageTemplate({
-            name: obj[key].userName,
-            message: obj[key].message,
-            });
-        bodyText += messageTemplate;
+
+        let requestElement = document.createElement('p');
+        requestElement.classList.add('modal_text');
+
+        let usernameSpan = document.createElement('span');
+        usernameSpan.classList.add('user_name');
+        usernameSpan.appendChild(document.createTextNode(obj[key].userName));
+
+        requestElement.appendChild(usernameSpan);
+        requestElement.appendChild(document.createTextNode(': ' + obj[key].message));
+
+        modalBody.append(requestElement);
     });
-
-    modalBody.innerHTML += bodyText;
 }
 
-function getMessageTemplate(userData) {
-    return `
-       <p class="modal_text">
-        <span class="user_name">${userData.name}</span>: ${userData.message}
-       </p>
-  `;
+function removeModalElement() {
+    const modalElement = document.querySelector('.modal');
+    const overlay = document.querySelector('.overlay');
+
+    const closeCross = document.querySelector('.close');
+    closeCross.removeEventListener('click',removeModalElement);
+    overlay.removeEventListener('click', removeModalElement);
+
+    modalElement.remove();
+    overlay.remove();
+
+    document.body.style.overflow = 'auto';
 }
 
-function getModalTemplate() {
-    return `
-        <div id="openModal" class="modal">
-            <div class="modal_dialog">
-                <div class="modal_content">
-                    <div class="modal_header">
-                        <h3 class="modal_title">Results of GET request</h3>
-                        <a href="#close" title="Close" class="close">×</a>
-                    </div>
-                    <div class="modal_body">
-                    </div>
-                </div>
-            </div>
-       </div>
-  `;
+function processModal() {
+
+    createModalElement();
+
+    const closeCross = document.querySelector('.close');
+    closeCross.addEventListener('click',() => removeModalElement(event));
+
+    const overlay = document.querySelector('.overlay');
+    overlay.addEventListener('click',() => removeModalElement(event));
 }
+
+const openLink = document.querySelector('.show_modal_link');
+openLink.addEventListener('click', (event) => processModal(event));
+openLink.click();
+

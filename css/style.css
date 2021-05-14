@@ -20,7 +20,7 @@ body{
 }
 
 /* button show_modal */
-.model_button {
+.modal_button {
     margin: 100px auto;
     display: flex;
     justify-content: center;
@@ -42,21 +42,20 @@ body{
 
 /* modal */
 .modal {
+    width: 600px;
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.5);
     z-index: 1050;
+    display: block;
     opacity: 0;
-    transition: opacity 200ms ease-in;
+    top: 10%;
+    left: 33%;
     pointer-events: none;
+    transition: opacity 200ms ease-in;
     margin: 0;
     padding: 0;
 }
 
-/* при отображении модального окно */
+/* showing modal window*/
 .modal:target {
     opacity: 1;
     pointer-events: auto;
@@ -65,7 +64,7 @@ body{
 .modal_dialog {
     position: relative;
     width: auto;
-    margin: 150px auto;
+    margin: 40px auto;
     max-width: 500px;
 }
 
@@ -121,7 +120,8 @@ body{
     position: relative;
     flex: 1 1 auto;
     padding: 15px;
-    overflow: auto;
+    max-height: calc(100vh - 610px);
+    overflow-y: auto;
 }
 
 .modal_text {
@@ -130,5 +130,63 @@ body{
 
 .user_name {
     font-weight: 400;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* modal overlay */
+.overlay {
+    z-index: 150;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+
+/* form */
+.post_form {
+    width: 350px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.post_form input, .post_form textarea {
+    width: 100%;
+    background: #f7f7f7;
+    border-radius: 1rem;
+
+    outline: none;
+    margin: 10px 0;
+    line-height: 44px;
+    font-size: 16px;
+    padding: 0 15px;
+}
+
+.post_form textarea {
+    resize: none;
+}
+
+.send_button {
+    width: 45%;
+    font-weight: 400;
+    background: white;
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 1rem;
+    transition: box-shadow .3s;
+}
+
+.send_button:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(33,33,33,.9);
 }
 

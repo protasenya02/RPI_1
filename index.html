@@ -5,29 +5,25 @@
     <meta charset="utf-8">
     <title>JavaScript laba 2</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
-
 <body>
-
-<div class="model_button">
+<div class="modal_button">
     <div class="container">
-        <button id="show_modal" class="btn"> 👉Click <a href="#openModal">here</a> to open modal window</button>
+        <button id="show_modal" class="btn"> 👉Click <a class="show_modal_link" href="#openModal">here</a> to open modal window</button>
     </div>
 </div>
-
-
-
-<!--<script>-->
-
-<!--        createModal();-->
-
-
-
-<!--</script>-->
-
+<section>
+    <div class="container">
+        <p><iframe name="area" width="0" height="0"></iframe></p>
+        <form class="post_form" method="post" action="https://rpi-lab2.herokuapp.com/api/message" target="area">
+               <input id="username" name="userName" placeholder="Username" required>
+               <textarea id="message" name="message" placeholder="Message" rows="3" required></textarea>
+               <button class="send_button" type="submit">Send</button>
+        </form>
+    </div>
+</section>
+<script src="js/script.js"></script>
 </body>
-
 </html>
